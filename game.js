@@ -523,9 +523,9 @@ nextLevelButton.addEventListener("click", () => {
 
         loadLevel();
 
-    }
+        requestAnimationFrame(updateGame);
 
-    else {
+    } else {
 
         alert(
             "🔥 VOCÊ ZEROU AS 100 FASES! 🔥\n\n" +
@@ -534,7 +534,6 @@ nextLevelButton.addEventListener("click", () => {
         );
 
         showScreen(menu);
-
     }
 
 });
