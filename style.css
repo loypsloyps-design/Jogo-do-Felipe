@@ -309,23 +309,25 @@ button:active {
 #player {
     position: absolute;
 
-    width: 35px;
-    height: 35px;
+    width: 55px;
+    height: 70px;
 
     left: 40px;
     bottom: 70px;
 
-    border-radius: 9px;
-
-    background: white;
-
-    box-shadow:
-        0 5px 0 rgba(0,0,0,0.3),
-        0 0 20px rgba(255,255,255,0.4);
+    object-fit: contain;
 
     z-index: 5;
-}
 
+    user-select: none;
+    pointer-events: none;
+
+    image-rendering: auto;
+
+    filter: drop-shadow(0 5px 4px rgba(0, 0, 0, 0.35));
+
+    transition: transform 0.08s linear;
+}
 
 /* =========================================
    PLATAFORMAS
