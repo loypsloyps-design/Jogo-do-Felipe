@@ -581,8 +581,9 @@ retryButton.addEventListener("click", () => {
 
     loadLevel();
 
-});
+    requestAnimationFrame(updateGame);
 
+});
 
 gameOverMenuButton.addEventListener("click", () => {
 
