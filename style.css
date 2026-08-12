@@ -576,3 +576,46 @@ button:active {
     }
 
 }
+
+
+/* =========================================
+   ANIMAÇÕES DO FELIPE
+========================================= */
+
+.player-running {
+    animation: running 0.22s infinite alternate;
+}
+
+.player-jumping {
+    transform: scale(1.05) rotate(-3deg);
+}
+
+.player-damaged {
+    animation: damage 0.12s infinite alternate;
+}
+
+@keyframes running {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-4px);
+    }
+
+}
+
+@keyframes damage {
+
+    from {
+        opacity: 1;
+        transform: translateX(-4px);
+    }
+
+    to {
+        opacity: 0.45;
+        transform: translateX(4px);
+    }
+
+}
