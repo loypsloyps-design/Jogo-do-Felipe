@@ -1,1 +1,576 @@
+/* =========================================
+   JOGO DO FELIPE
+   100 FASES
+========================================= */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080b18;
+    color: white;
+}
+
+
+/* =========================================
+   TELAS
+========================================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at 50% 30%, #20285a 0%, #080b18 65%);
+
+    z-index: 10;
+}
+
+.screen.active {
+    display: flex;
+}
+
+
+/* =========================================
+   MENU
+========================================= */
+
+.menu-content {
+    width: min(90%, 500px);
+    text-align: center;
+
+    animation: appear 0.8s ease;
+}
+
+.game-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 5px;
+}
+
+.game-logo .number {
+    font-size: clamp(80px, 20vw, 140px);
+    font-weight: 900;
+    line-height: 0.8;
+
+    letter-spacing: -8px;
+
+    text-shadow:
+        0 8px 0 #11162c,
+        0 0 30px rgba(255,255,255,0.2);
+}
+
+.game-logo .title {
+    font-size: clamp(35px, 10vw, 60px);
+    font-weight: 900;
+    letter-spacing: 8px;
+
+    margin-left: 8px;
+}
+
+.subtitle {
+    margin-top: 15px;
+
+    letter-spacing: 7px;
+    font-size: 14px;
+
+    opacity: 0.65;
+}
+
+
+/* =========================================
+   BOTÕES
+========================================= */
+
+button {
+    border: none;
+    outline: none;
+
+    cursor: pointer;
+
+    font-weight: 900;
+
+    transition:
+        transform 0.15s,
+        filter 0.15s;
+}
+
+button:active {
+    transform: scale(0.94);
+}
+
+.main-button {
+    display: block;
+
+    width: min(100%, 330px);
+
+    margin: 45px auto 15px;
+
+    padding: 18px 25px;
+
+    border-radius: 14px;
+
+    background: white;
+    color: #11152d;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 8px 0 rgba(0,0,0,0.3),
+        0 0 30px rgba(255,255,255,0.12);
+}
+
+.main-button:hover {
+    filter: brightness(1.1);
+}
+
+.secondary-button {
+    display: block;
+
+    width: min(100%, 330px);
+
+    margin: 10px auto;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.08);
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    font-size: 15px;
+}
+
+.creator {
+    margin-top: 55px;
+
+    font-size: 13px;
+
+    opacity: 0.55;
+}
+
+.creator strong {
+    color: white;
+}
+
+
+/* =========================================
+   CRÉDITOS / PAINÉIS
+========================================= */
+
+.panel {
+    width: min(90%, 500px);
+
+    padding: 35px 25px;
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,0.06);
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.4);
+
+    animation: appear 0.5s ease;
+}
+
+.panel h1 {
+    font-size: 32px;
+
+    margin-bottom: 15px;
+}
+
+.panel h2 {
+    font-size: 20px;
+
+    margin-top: 10px;
+}
+
+.credit-line {
+    width: 60px;
+    height: 3px;
+
+    background: white;
+
+    margin: 0 auto 25px;
+}
+
+.big-text {
+    font-weight: 900;
+
+    font-size: 24px;
+
+    letter-spacing: 2px;
+}
+
+.copyright {
+    opacity: 0.4;
+
+    font-size: 12px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================
+   JOGO
+========================================= */
+
+#gameScreen {
+    flex-direction: column;
+
+    background: #10152d;
+}
+
+#hud {
+    width: 100%;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 0 15px;
+
+    background: rgba(0,0,0,0.35);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    z-index: 20;
+
+    font-weight: bold;
+}
+
+.hud-item {
+    font-size: 15px;
+}
+
+.level {
+    margin-left: auto;
+
+    font-size: 14px;
+
+    opacity: 0.8;
+}
+
+
+/* =========================================
+   ÁREA DO JOGO
+========================================= */
+
+#game {
+    position: relative;
+
+    width: 100%;
+    max-width: 1000px;
+
+    flex: 1;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #1c2855 0%,
+            #10152d 75%,
+            #090b17 100%
+        );
+}
+
+
+/* =========================================
+   PERSONAGEM
+========================================= */
+
+#player {
+    position: absolute;
+
+    width: 35px;
+    height: 35px;
+
+    left: 40px;
+    bottom: 70px;
+
+    border-radius: 9px;
+
+    background: white;
+
+    box-shadow:
+        0 5px 0 rgba(0,0,0,0.3),
+        0 0 20px rgba(255,255,255,0.4);
+
+    z-index: 5;
+}
+
+
+/* =========================================
+   PLATAFORMAS
+========================================= */
+
+.platform {
+    position: absolute;
+
+    height: 18px;
+
+    border-radius: 8px;
+
+    background: #5966a8;
+
+    box-shadow:
+        0 5px 0 rgba(0,0,0,0.3);
+}
+
+.platform1 {
+    width: 220px;
+
+    left: 0;
+    bottom: 35px;
+}
+
+.platform2 {
+    width: 150px;
+
+    left: 300px;
+    bottom: 150px;
+}
+
+.platform3 {
+    width: 180px;
+
+    right: 40px;
+    bottom: 260px;
+}
+
+
+/* =========================================
+   MOEDAS
+========================================= */
+
+.coin {
+    position: absolute;
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #ffd84d;
+
+    color: #5d4700;
+
+    font-size: 15px;
+
+    box-shadow:
+        0 0 15px rgba(255,216,77,0.5);
+
+    animation: coinFloat 1s infinite alternate;
+
+    z-index: 4;
+}
+
+#coin1 {
+    left: 120px;
+    bottom: 90px;
+}
+
+#coin2 {
+    left: 345px;
+    bottom: 205px;
+}
+
+#coin3 {
+    right: 100px;
+    bottom: 315px;
+}
+
+
+/* =========================================
+   SAÍDA
+========================================= */
+
+#exit {
+    position: absolute;
+
+    right: 35px;
+    bottom: 70px;
+
+    font-size: 45px;
+
+    animation: portal 1s infinite alternate;
+
+    z-index: 4;
+}
+
+
+/* =========================================
+   CONTROLES MOBILE
+========================================= */
+
+#mobileControls {
+    width: 100%;
+
+    height: 90px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background: rgba(0,0,0,0.35);
+
+    z-index: 30;
+}
+
+#mobileControls button {
+    width: 70px;
+    height: 60px;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.1);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    font-size: 25px;
+}
+
+#jumpButton {
+    margin-bottom: 15px;
+}
+
+
+/* =========================================
+   VITÓRIA
+========================================= */
+
+.victory-icon,
+.death-icon {
+    font-size: 70px;
+
+    margin-bottom: 10px;
+}
+
+#resultStars {
+    font-size: 32px;
+
+    margin: 15px 0;
+}
+
+
+/* =========================================
+   ANIMAÇÕES
+========================================= */
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+@keyframes coinFloat {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-8px);
+    }
+
+}
+
+@keyframes portal {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.12);
+    }
+
+}
+
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media (min-width: 700px) {
+
+    #mobileControls {
+        display: none;
+    }
+
+    #game {
+        margin: auto;
+
+        height: calc(100vh - 65px);
+
+        flex: none;
+    }
+
+}
+
+
+/* =========================================
+   TELAS PEQUENAS
+========================================= */
+
+@media (max-height: 650px) {
+
+    #hud {
+        height: 50px;
+    }
+
+    #mobileControls {
+        height: 70px;
+    }
+
+    #mobileControls button {
+        height: 48px;
+        width: 60px;
+    }
+
+}
