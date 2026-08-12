@@ -1,1 +1,235 @@
-# Jogo-do-Felipe
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Jogo do Felipe | 100 Fases</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==============================
+         MENU PRINCIPAL
+    =============================== -->
+
+    <div id="menu" class="screen active">
+
+        <div class="menu-content">
+
+            <div class="game-logo">
+                <span class="number">100</span>
+                <span class="title">FASES</span>
+            </div>
+
+            <p class="subtitle">O DESAFIO</p>
+
+            <button id="playButton" class="main-button">
+                ▶ JOGAR
+            </button>
+
+            <button id="creditsButton" class="secondary-button">
+                ⚙ CRÉDITOS
+            </button>
+
+            <div class="creator">
+                Criado por <strong>Felipe</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         TELA DE CRÉDITOS
+    =============================== -->
+
+    <div id="credits" class="screen">
+
+        <div class="panel">
+
+            <h1>CRÉDITOS</h1>
+
+            <div class="credit-line"></div>
+
+            <p class="big-text">
+                JOGO DO FELIPE
+            </p>
+
+            <p>
+                100 Fases — O Desafio
+            </p>
+
+            <br>
+
+            <p>
+                Conceito<br>
+                Programação<br>
+                Desenvolvimento
+            </p>
+
+            <br>
+
+            <h2>CRIADO POR FELIPE</h2>
+
+            <p class="copyright">
+                © 2026 Felipe
+            </p>
+
+            <button id="backButton" class="secondary-button">
+                ← VOLTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         JOGO
+    =============================== -->
+
+    <div id="gameScreen" class="screen">
+
+        <!-- HUD -->
+
+        <div id="hud">
+
+            <div class="hud-item">
+                ❤️ <span id="lives">3</span>
+            </div>
+
+            <div class="hud-item">
+                ⭐ <span id="stars">0</span>
+            </div>
+
+            <div class="hud-item">
+                🪙 <span id="coins">0</span>
+            </div>
+
+            <div class="hud-item">
+                ⏱️ <span id="timer">30</span>
+            </div>
+
+            <div class="level">
+                FASE <span id="levelNumber">1</span>/100
+            </div>
+
+        </div>
+
+
+        <!-- ÁREA DO JOGO -->
+
+        <div id="game">
+
+            <div id="player"></div>
+
+            <div id="coin1" class="coin">★</div>
+            <div id="coin2" class="coin">★</div>
+            <div id="coin3" class="coin">★</div>
+
+            <div class="platform platform1"></div>
+            <div class="platform platform2"></div>
+            <div class="platform platform3"></div>
+
+            <div id="exit">
+                🚪
+            </div>
+
+        </div>
+
+
+        <!-- CONTROLES MOBILE -->
+
+        <div id="mobileControls">
+
+            <button id="leftButton">
+                ◀
+            </button>
+
+            <button id="jumpButton">
+                ▲
+            </button>
+
+            <button id="rightButton">
+                ▶
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         TELA DE VITÓRIA
+    =============================== -->
+
+    <div id="victory" class="screen">
+
+        <div class="panel victory-panel">
+
+            <div class="victory-icon">
+                🏆
+            </div>
+
+            <h1>FASE CONCLUÍDA!</h1>
+
+            <div id="resultStars">
+                ⭐⭐⭐
+            </div>
+
+            <p>
+                Você passou da fase!
+            </p>
+
+            <button id="nextLevelButton" class="main-button">
+                PRÓXIMA FASE →
+            </button>
+
+            <button id="menuButton" class="secondary-button">
+                MENU
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         TELA DE DERROTA
+    =============================== -->
+
+    <div id="gameOver" class="screen">
+
+        <div class="panel">
+
+            <div class="death-icon">
+                💀
+            </div>
+
+            <h1>VOCÊ PERDEU!</h1>
+
+            <p>
+                Não desiste agora...
+            </p>
+
+            <button id="retryButton" class="main-button">
+                🔄 TENTAR NOVAMENTE
+            </button>
+
+            <button id="gameOverMenuButton" class="secondary-button">
+                MENU
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="game.js"></script>
+
+</body>
+</html>
