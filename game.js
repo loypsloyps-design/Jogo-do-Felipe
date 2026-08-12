@@ -147,8 +147,29 @@ function loadLevel() {
     velocityY = 0;
 
     player.style.left = playerX + "px";
+player.style.bottom = (70 + playerY) + "px";
 
-    player.style.bottom = "70px";
+
+/* =========================================
+   ANIMAÇÃO DO PERSONAGEM
+========================================= */
+
+player.classList.remove(
+    "player-running",
+    "player-jumping"
+);
+
+if (!onGround) {
+
+    player.classList.add("player-jumping");
+
+}
+
+else if (Math.abs(velocityX) > 0.5) {
+
+    player.classList.add("player-running");
+
+}
 
     coinElements.forEach(coin => {
         coin.style.display = "flex";
